@@ -10,42 +10,43 @@ These instructions will get you a copy of the project up and running on your loc
 
 Install python 3.6 run the commands
 
-- sudo apt-get update
+    - sudo apt-get update
 
-- sudo apt-get install python3.6
+    - sudo apt-get install python3.6
 
 Install pip
 
-- sudo apt install python3-pip
+    - sudo apt install python3-pip
+
 Install curl using the commands
 
-- sudo apt-get install curl
+    - sudo apt-get install curl
 
 ## Installation
 
 Clone the repository by running the command
 
-- git clone https://github.com/moha-abdul/instaClown.git
+    - git clone https://github.com/moha-abdul/instaClown.git
 
 Navigate to your directory and install a virtual environment using the command
 
-- python3.6 -m venv --without-pip virtual
+    - python3.6 -m venv --without-pip virtual
 
 Activate the virtual environment using the commands
 
-- source virtual/bin/activate
+    - source virtual/bin/activate
 
 Install pip within the environment by running the command
 
-- curl https://bootstrap.pypa.io/get-pip.py | python
+    - curl https://bootstrap.pypa.io/get-pip.py | python
 
 Install all the requirements in the requirements.txt file by running the command
 
-- pip install -r "requirements.txt"
+    - pip install -r "requirements.txt"
 
 To run the project on localhost server, run the command
 
-- python3.6 mange.py runserver
+    - python3.6 mange.py runserver
 
 Deployment Add additional notes about how to deploy this on a live system
 
