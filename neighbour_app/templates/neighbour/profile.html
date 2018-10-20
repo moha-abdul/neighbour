@@ -10,7 +10,7 @@
 					<div class="profile">
 					{% if profile %}
 						<div class="profile-image">
-							<img src="{{request.user.profile.profile_photo.url}}" alt="">
+							<img src="{{request.user.profile.photo.url}}" alt="">
 						</div>
 						<div class="profile-user-settings">
 							<h1 class="profile-user-name">{{ request.user.username }}</h1>
@@ -18,7 +18,7 @@
 								<button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
 						</div>
 						<div class="profile-bio">
-							<p><span class="profile-real-name"></span>{{request.user.profile.profile_bio}}</p>
+							<p><span class="profile-real-name"></span>{{request.user.profile.bio}}</p>
 						</div>
 					{% else %}
 						<img src="https://mbtskoudsalg.com/images/user-avatar-png-4.png" alt="">
