@@ -11,7 +11,7 @@
       <nav class="navbar">
         <a href='/'>Home</a>
         
-        <form class="search-section" role="search" action="{% url 'search_project' %}" name="search" placeholder="search">
+        <form class="search-section" role="search" action="#" name="search" placeholder="search">
           <input class="input-search" />
         </form>
         {% if user.is_authenticated %}
@@ -24,11 +24,11 @@
         {% else %}
         <li><a class="smoth-scroll" href="accounts/login">Login</a>
         </li>
-        <!-- <li><a class="smoth-scroll" href="{%url 'add_project'%}">Submit</a></a> -->
+        <!-- <li><a class="smoth-scroll" href="#">Submit</a></a> -->
         </li>
           {% endif %}
         <section class="icons-section">
-          <!-- <a class="fa fa-upload" href="{% url 'add_project' %}">Add project</a> -->
+          <!-- <a class="fa fa-upload" href="#">Add project</a> -->
           
           
           <a class="fa fa-user" href="/logout">Logout</a>

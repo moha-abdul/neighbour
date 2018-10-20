@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <body>
+    <div class="container">
+        <div class="container">
+            <div class="jumbotron">
+                <h1>Jumbotron</h1>      
+                <p>welcome to neighbourhood!</p>
+            </div>   
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+            {% if projects %}
+                {% for project in projects %}
+                <div>
+                <a href="/single_project/{{project.id}}">
+                <div>
+                    <p>{{project.project}}</p>
+                    <img src="{{project.screenshot.url}}">
+                    <p>{{project.description}}</p>
+                </div>
+                </a>
+                {% endfor %}
+            {% else %}
+                <p>nothing for now</p>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock  %}

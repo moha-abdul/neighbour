@@ -7,9 +7,9 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
-from .forms import SignupForm,ProfileForm,ProjectForm
+from .forms import SignupForm,ProfileForm
 from django.contrib.auth.models import User
-from .models import Profile, Project
+from .models import Profile
 from django.core.mail import EmailMessage
 
 def signup(request):
@@ -22,7 +22,7 @@ def signup(request):
             profile=Profile(user=user)
             profile.save()             
             current_site = get_current_site(request)
-            mail_subject = 'Activate your awwwwwwwwwwww account.'
+            mail_subject = 'Activate your account.'
             message = render_to_string('registration/acc_active_email.html', {
                 'user': user,
                 'domain': current_site.domain,
@@ -54,3 +54,29 @@ def activate(request, uidb64, token):
     else:
         return HttpResponse('Activation link is invalid!')
 
+def home(request):
+    # projects = Project.objects.all()
+
+    return render(request, 'neighbour/index.html')
+
+@login_required(login_url="/accounts/login/")
+def profile(request):
+    current_user = request.user
+    profile=Profile.objects.filter(user=request.user)
+    return render (request,'neighbour/profile.html',{'profile':profile})
+
+@login_required
+def edit_profile(request):
+    # images = Image.objects.all()
+    profile = Profile.objects.filter(user=request.user)
+    current_user = request.user
+    # photos = Image.objects.filter(user=current_user)
+    prof_form = ProfileForm()
+    if request.method == 'POST':
+        prof_form =ProfileForm(request.POST,request.FILES,instance=request.user.profile)
+        if prof_form.is_valid:
+            prof_form.save()
+        else:
+            prof_form = ProfileForm()
+            return render(request, 'neighbour/edit-profile.html', {"prof_form": prof_form,"profile":profile})
+    return render(request, 'neighbour/edit-profile.html', {"prof_form":prof_form,"profile":profile})
