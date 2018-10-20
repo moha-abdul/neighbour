@@ -25,6 +25,23 @@ class Neighbourhood(models.Model):
     def update_occupants():
         self.save()
 
+class Business(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.CharField(max_length=100)
+    user = models.ForeignKey('User', related_name='Business', null=True)
+    neighbourhood = models.ForeignKey('Neighbourhood', related_name='Business', null=True)
+
+    def create_business():
+        self.save()
+
+    def delete_business():
+        self.delete()
+
+    def find_business(business_id):
+        self.save()
+
+    def update_business():
+        self.update()
 
 class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile')
