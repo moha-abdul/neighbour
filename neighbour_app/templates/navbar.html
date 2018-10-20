@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="container-fluid">
+
+      <nav class="navbar">
+        <a href='/'>Home</a>
+        
+        <form class="search-section" role="search" action="{% url 'search_project' %}" name="search" placeholder="search">
+          <input class="input-search" />
+        </form>
+        {% if user.is_authenticated %}
+        <li class="active"><a class="smoth-scroll" href="#home">Home <div class="ripple-wrapper"></div></a>
+        <li><a class="smoth-scroll" href="{% url 'edit_profile' %}">Edit_profile</a>
+        </li>
+      </li>
+      <li><a class="smoth-scroll" href="#">Logout</a>
+      </li>
+        {% else %}
+        <li><a class="smoth-scroll" href="accounts/login">Login</a>
+        </li>
+        <!-- <li><a class="smoth-scroll" href="{%url 'add_project'%}">Submit</a></a> -->
+        </li>
+          {% endif %}
+        <section class="icons-section">
+          <!-- <a class="fa fa-upload" href="{% url 'add_project' %}">Add project</a> -->
+          
+          
+          <a class="fa fa-user" href="/logout">Logout</a>
+        </section>
+      </nav>
+
+    </div>
+</body>
+</html>
