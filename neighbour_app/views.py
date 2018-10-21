@@ -7,9 +7,9 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
-from .forms import SignupForm,ProfileForm
+from .forms import SignupForm,ProfileForm,PostForm
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile, Posts
 from django.core.mail import EmailMessage
 
 def signup(request):
@@ -55,9 +55,8 @@ def activate(request, uidb64, token):
         return HttpResponse('Activation link is invalid!')
 
 def home(request):
-    # projects = Project.objects.all()
-
-    return render(request, 'neighbour/index.html')
+    posts = Posts.objects.all()
+    return render(request, 'neighbour/index.html',{"posts": posts})
 
 @login_required(login_url="/accounts/login/")
 def profile(request):
@@ -81,5 +80,14 @@ def edit_profile(request):
     return render(request, 'neighbour/edit-profile.html', {"prof_form":prof_form,"profile":profile})
 
 @login_required
-def posts(request):
-    return render(requests,'neighbour/posts.html')
+def new_post(request):
+    current_user = request.user
+    post_form = PostForm()
+    if request.method == 'POST':
+        post_form =PostForm(request.POST,instance=request.user.profile)
+        if post_form.is_valid:
+            post_form.save()
+        else:
+            post_form = PostForm()
+            return render(request, 'neighbour/new-post.html', {"post_form": post_form})
+    return render(request, 'neighbour/new-post.html', {"post_form":post_form})

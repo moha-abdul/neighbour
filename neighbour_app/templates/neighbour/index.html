@@ -8,18 +8,18 @@
             <div class="jumbotron">
                 <h1>Jumbotron</h1>      
                 <p>welcome to neighbourhood!</p>
-            </div>   
+                <p><a href="{% url 'new_post' %}">New post</a></p>
+            </div>
         </div>
         <div class="row">
             <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
-            {% if projects %}
-                {% for project in projects %}
+            {% if posts %}
+                {% for post in posts %}
                 <div>
-                <a href="/single_project/{{project.id}}">
+                
                 <div>
-                    <p>{{project.project}}</p>
-                    <img src="{{project.screenshot.url}}">
-                    <p>{{project.description}}</p>
+                    <p>{{post.title}}</p>
+                    <p>{{post.body}}</p>
                 </div>
                 </a>
                 {% endfor %}
