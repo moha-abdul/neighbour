@@ -11,6 +11,7 @@ urlpatterns=[
         views.activate, name='activate'),
     url(r'^profile/',views.profile,name='profile'),
     url(r'^edit_profile/', views.edit_profile, name = 'edit_profile'),
+    url(r'^posts/', views.posts, name = 'posts')
 ]
 
 if settings.DEBUG:

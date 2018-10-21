@@ -20,6 +20,9 @@
 						<div class="profile-bio">
 							<p><span class="profile-real-name"></span>{{request.user.profile.bio}}</p>
 						</div>
+						<div class="profile-bio">
+							<p><span class="profile-real-name"></span>current neighbourhood: {{request.user.neighbourhood.name}}</p>
+						</div>
 					{% else %}
 						<img src="https://mbtskoudsalg.com/images/user-avatar-png-4.png" alt="">
 					{% endif %}

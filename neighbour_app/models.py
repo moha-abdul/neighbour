@@ -16,19 +16,27 @@ class Neighbourhood(models.Model):
     def delete_neighbourhood(self):
         self.delete()
 
-    def find_neigborhood(neigborhood_id):
-        self.save()
+    @classmethod
+    def find_neighbourhood(cls,id):
+        neighbourhood = Neighbourhood.objects.get(id=id)
+        return neighbourhood
 
-    def update_neighborhood():
-        self.update()
+    @classmethod
+    def update_neighborhood(cls):
+        updated = cls.objects.all().update()
+        updated.save()
+        return updated
 
-    def update_occupants():
-        self.save()
+    @classmethod
+    def update_occupants(cls):
+        occupant = cls.objects.all().update()
+        occupant.save()
+        return occupant
 
 class Business(models.Model):
     name = models.CharField(max_length=50)
     email = models.CharField(max_length=100)
-    user = models.ForeignKey('User', related_name='Business', null=True)
+    profile = models.ForeignKey('Profile', related_name='Business', null=True)
     neighbourhood = models.ForeignKey('Neighbourhood', related_name='Business', null=True)
 
     def create_business():
@@ -37,17 +45,23 @@ class Business(models.Model):
     def delete_business():
         self.delete()
 
-    def find_business(business_id):
-        self.save()
+    
+    @classmethod
+    def find_business(cls, name):
+        business = Business.objects.get(name=name)
+        return business
 
+    @classmethod
     def update_business():
-        self.update()
+        updat = cls.objects.all().update()
+        updat.save()
+        return updat
 
 class Profile(models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile')
+    user = models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile', null=True)
     bio = models.CharField(max_length=50)
     photo  = models.ImageField(upload_to = 'profile/')
-    email = models.CharField(max_length=200)
+    email = models.CharField(max_length=200, null=True)
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, related_name='profile', null=True)
 
     def __str__(self):

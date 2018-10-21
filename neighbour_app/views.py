@@ -63,14 +63,13 @@ def home(request):
 def profile(request):
     current_user = request.user
     profile=Profile.objects.filter(user=request.user)
+    # neighbourhood = Neighbourhood.objects.filter(user=request.user)
     return render (request,'neighbour/profile.html',{'profile':profile})
 
 @login_required
 def edit_profile(request):
-    # images = Image.objects.all()
     profile = Profile.objects.filter(user=request.user)
     current_user = request.user
-    # photos = Image.objects.filter(user=current_user)
     prof_form = ProfileForm()
     if request.method == 'POST':
         prof_form =ProfileForm(request.POST,request.FILES,instance=request.user.profile)
@@ -80,3 +79,7 @@ def edit_profile(request):
             prof_form = ProfileForm()
             return render(request, 'neighbour/edit-profile.html', {"prof_form": prof_form,"profile":profile})
     return render(request, 'neighbour/edit-profile.html', {"prof_form":prof_form,"profile":profile})
+
+@login_required
+def posts(request):
+    return render(requests,'neighbour/posts.html')
