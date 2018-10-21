@@ -56,7 +56,8 @@ def activate(request, uidb64, token):
 
 def home(request):
     posts = Posts.objects.all()
-    return render(request, 'neighbour/index.html',{"posts": posts})
+    businesses = Business.objects.all()
+    return render(request, 'neighbour/index.html',{"posts": posts, "businesses": businesses})
 
 @login_required(login_url="/accounts/login/")
 def profile(request):

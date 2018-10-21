@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-lg-8 col-xs-8 col-sm-8">
+            {% if businesses %}
+                <h2>Found {{ business|length }} users with title {{message}}</h2>
+                {% else %}
+                <h2> Found 0 businesses</h2>
+                {% endif %}
+
+            </div>
+
+            <div class="row">
+
+            {% if businesses %}
+                {% for business in businesses %}
+                <div class="col-md-8 col-lg-8 col-xs-8 col-sm-8">
+                    <h1>{{business.name}}</h1>
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
