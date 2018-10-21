@@ -82,12 +82,16 @@ def edit_profile(request):
 @login_required
 def new_post(request):
     current_user = request.user
-    post_form = PostForm()
+    # post_form = PostForm()
     if request.method == 'POST':
         post_form =PostForm(request.POST,instance=request.user.profile)
         if post_form.is_valid:
-            post_form.save()
-        else:
-            post_form = PostForm()
-            return render(request, 'neighbour/new-post.html', {"post_form": post_form})
-    return render(request, 'neighbour/new-post.html', {"post_form":post_form})
+            new_post = post_form.save(commit=False)
+            new_post.user = current_user
+            new_post.save()
+        return redirect('/')
+
+    else:
+        post_form = PostForm()
+    return render(request, 'neighbour/new-post.html', {"post_form": post_form})
+    # return render(request, 'neighbour/new-post.html', {"post_form":post_form})
