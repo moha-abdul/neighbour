@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Profile, Posts
+from .models import Profile, Posts, Business
 
 
 class SignupForm(UserCreationForm):
@@ -19,3 +19,8 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Posts
         fields = ('title','body')
+
+class BusinessForm(forms.ModelForm):
+    class Meta:
+        model = Business
+        fields = ('name','neighbourhood')     

@@ -11,7 +11,9 @@ urlpatterns=[
         views.activate, name='activate'),
     url(r'^profile/',views.profile,name='profile'),
     url(r'^edit_profile/', views.edit_profile, name = 'edit_profile'),
-    url(r'^new_post/', views.new_post, name = 'new_post')
+    url(r'^new_post/', views.new_post, name = 'new_post'),
+    url(r'single_post/(\d+)',views.single_post, name = 'single_post'),
+    url(r'new_biz/',views.new_biz, name = 'new_biz'),
 ]
 
 if settings.DEBUG:

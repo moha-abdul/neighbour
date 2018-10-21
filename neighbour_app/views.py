@@ -7,7 +7,7 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
-from .forms import SignupForm,ProfileForm,PostForm
+from .forms import SignupForm,ProfileForm,PostForm, BusinessForm
 from django.contrib.auth.models import User
 from .models import Profile, Posts
 from django.core.mail import EmailMessage
@@ -93,5 +93,23 @@ def new_post(request):
 
     else:
         post_form = PostForm()
-    return render(request, 'neighbour/new-post.html', {"post_form": post_form})
-    # return render(request, 'neighbour/new-post.html', {"post_form":post_form})
+        return render(request, 'neighbour/new-post.html', {"post_form": post_form})
+
+@login_required
+def single_post(request,post_id):
+    return render(request,'neighbour/single-post.html')
+
+@login_required
+def new_biz(request):
+    current_user = request.user
+    if request.method == 'POST':
+        biz_form =BusinessForm(request.POST,instance=request.user.profile)
+        if biz_form.is_valid:
+            new_biz = biz_form.save(commit=False)
+            new_biz.user = current_user
+            new_biz.save()
+        return redirect('/')
+
+    else:
+        biz_form =BusinessForm()
+        return render(request, 'neighbour/new-biz.html',{"biz_form": biz_form})

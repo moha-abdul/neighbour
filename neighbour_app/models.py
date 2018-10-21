@@ -40,7 +40,7 @@ class Profile(models.Model):
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, related_name='profile', null=True)
 
     def __str__(self):
-        return self.bio
+        return self.user()
 
     def save_profile(self):
         self.save()
@@ -53,6 +53,9 @@ class Business(models.Model):
     email = models.CharField(max_length=100)
     user = models.ForeignKey(Profile, related_name='Business', null=True)
     neighbourhood = models.ForeignKey(Neighbourhood, related_name='Business', null=True)
+
+    def __str__(self):
+        return self.user()
 
     def create_business():
         self.save()

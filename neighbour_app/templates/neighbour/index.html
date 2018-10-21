@@ -9,6 +9,7 @@
                 <h1>Jumbotron</h1>      
                 <p>welcome to neighbourhood!</p>
                 <p><a href="{% url 'new_post' %}">New post</a></p>
+                <p><a href="{% url 'new_biz' %}">New business</a></p>
             </div>
         </div>
         <div class="row">
@@ -20,6 +21,23 @@
                 <div>
                     <p>{{post.title}}</p>
                     <p>{{post.body}}</p>
+                </div>
+                </a>
+                {% endfor %}
+            {% else %}
+                <p>nothing for now</p>
+            {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+            {% if businesses %}
+                {% for business in businesses %}
+                <div>
+                
+                <div>
+                    <p>{{business.name}}</p>
+                    <p>#</p>
                 </div>
                 </a>
                 {% endfor %}
