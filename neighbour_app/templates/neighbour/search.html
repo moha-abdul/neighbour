@@ -4,18 +4,18 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-lg-8 col-xs-8 col-sm-8">
-            {% if businesses %}
-                <h2>Found {{ businesses|length }} businesses named {{message}}</h2>
+            {% if searched_biz %}
+                <h2>Found {{ searched_biz|length }} businesses named {{message}}</h2>
                 {% else %}
-                <h2> Found 0 businesses</h2>
+                <h2> Found 0 businesses named {{message}}</h2>
                 {% endif %}
 
             </div>
 
             <div class="row">
 
-            {% if businesses %}
-                {% for business in businesses %}
+            {% if searched_biz %}
+                {% for business in searched_biz %}
                 <div class="col-md-8 col-lg-8 col-xs-8 col-sm-8">
                     <h1>{{business.name}}</h1>
                 </div>

@@ -157,16 +157,16 @@ def new_biz(request):
 @login_required
 def search_biz(request):
 
-    if 'business' in request.GET and request.GET["business"]:
-        search_term = request.GET.get("business")
-        searched_biz = Business.objects.filter(name=search_term)
+    if 'neighbourhood' in request.GET and request.GET["neighbourhood"]:
+        search_term = request.GET.get("neighbourhood")
+        searched_biz = Neighbourhood.search_business(search_term)
         message = f"{search_term}"
 
-        return render(request, 'neighbour/search.html',{"message":message,"businesses": searched_biz})
+        return render(request, 'neighbour/search.html',{"message":message,"searched_biz": searched_biz})
 
     else:
-        message = "You haven't searched for any user"
-        return render(request, 'neighbour/search.html',{"message":message,"businesses": searched_biz})
+        message = "You haven't searched for a business"
+        return render(request, 'neighbour/search.html',{"message":message})
 
 @login_required
 def neighbour(request,neighbourhood_id):

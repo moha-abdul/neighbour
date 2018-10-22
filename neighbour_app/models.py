@@ -33,6 +33,11 @@ class Neighbourhood(models.Model):
         occupant.save()
         return occupant
 
+    @classmethod
+    def search_business(cls, search_term):
+        business = cls.objects.filter(biz__name__icontains=search_term)
+        return business
+
 class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile', null=True)
     photo  = models.ImageField(upload_to = 'profile/')
