@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+        <h3>These are all users in this neighbourhood</h3>
+            <div class="profile">
+            {% if users %}
+            
+                {% for user in users %}
+                <div class="profile-user-settings">
+                    <h5>{{ user.username }}</h5>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>No users in this neighbourhood</p>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

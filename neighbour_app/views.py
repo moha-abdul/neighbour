@@ -134,4 +134,5 @@ def search_biz(request):
 
 @login_required
 def neighbour(request,neighbourhood_id):
-    return render(request,'neighbour/neighbour.html')
+    users = User.objects.all()
+    return render(request,'neighbour/neighbour.html',{"users":users})
