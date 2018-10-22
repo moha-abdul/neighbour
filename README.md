@@ -60,7 +60,7 @@ Link to deployed site
 
 The link to the deployed site
 
-https://.herokuapp.com/
+http://my-neighbour.herokuapp.com
 
 ### Author(s)
 
