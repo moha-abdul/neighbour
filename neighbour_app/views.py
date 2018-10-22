@@ -131,3 +131,7 @@ def search_biz(request):
     else:
         message = "You haven't searched for any user"
         return render(request, 'neighbour/search.html',{"message":message,"businesses": searched_biz})
+
+@login_required
+def neighbour(request,neighbourhood_id):
+    return render(request,'neighbour/neighbour.html')
