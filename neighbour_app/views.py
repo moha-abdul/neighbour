@@ -9,7 +9,7 @@ from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from .forms import SignupForm,ProfileForm,PostForm, BusinessForm, CommentForm
 from django.contrib.auth.models import User
-from .models import Profile, Posts, Business, Neighbourhood
+from .models import Profile, Posts, Business, Neighbourhood, Comment
 from django.core.mail import EmailMessage
 
 def signup(request):
@@ -57,7 +57,7 @@ def activate(request, uidb64, token):
 def home(request):
     neighbourhoods = Neighbourhood.objects.all()
     posts = Posts.objects.all()
-    businesses = Business.objects.all()
+    # businesses = Business.objects.all()
     return render(request, 'neighbour/index.html',{"posts": posts, "businesses": businesses, "neighbourhoods": neighbourhoods})
 
 @login_required(login_url="/accounts/login/")
@@ -102,8 +102,9 @@ def edit_profile(request):
 @login_required
 def single_post(request,post_id):
     post = Posts.objects.get(id=post_id)
+    comments = Comment.objects.all()
     co_form = CommentForm()
-    return render(request,'neighbour/single-post.html',{"post": post, "co_form":co_form})
+    return render(request,'neighbour/single-post.html',{"post": post, "co_form":co_form, "comments":comments})
 
 @login_required
 def single_biz(request,post_id):
@@ -119,7 +120,7 @@ def new_post(request):
             posted.user = request.user
             posted.neighbourhood = request.user.profile.neighbourhood
             posted.save()
-            return redirect('neighbour/neighbour.html')
+            return redirect('neighbour/neighbour.html',request.user.profile.neighbourhood.id)
     else:
         post_form = PostForm()
     return render(request,'neighbour/new-post.html', locals())
@@ -170,26 +171,29 @@ def search_biz(request):
 @login_required
 def neighbour(request,neighbourhood_id):
     users = Profile.objects.filter(id=neighbourhood_id)
-    return render(request,'neighbour/neighbour.html',{"users":users})
+    return render(request,'neighbour/neighbour.html',locals())
 
 @login_required
 def posts(request):
-    posts = Posts.objects.all()
-    return render(request,'neighbour/posts.html',{"posts":posts })
+    posts = Posts.objects.filter(neighbourhood=request.user.profile.neighbourhood)
+    # comment = Commment.comment.filter(id=post_id)
+    return render(request,'neighbour/posts.html',{"posts":posts})
 
 @login_required
 def businesses(request):
-    businesses = Business.objects.all()
+    businesses = Business.objects.filter(neighbourhood=request.user.profile.neighbourhood)
     return render(request,'neighbour/businesses.html',locals())
 
 @login_required
-def new_comment(request,id):
+def comment(request,id):
     upload_comment = Posts.objects.get(id=id)
     if request.method == 'POST':
         co_form = CommentForm(request.POST)
         if co_form.is_valid():
             comment = co_form.save(commit=False)
             comment.user = request.user
-            comment.post = upload_comment
+            comment.posts = upload_comment
+            # print(upload_comment)
+            # print('print works')
             comment.save()
-        return redirect('neighbour/single-post.html')
+        return redirect('posts')

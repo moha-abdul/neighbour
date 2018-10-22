@@ -90,6 +90,6 @@ class Posts(models.Model):
 
 
 class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Comment')
+    user = models.ForeignKey(User)
     posts = models.ForeignKey(Posts,on_delete=models.CASCADE, related_name='Comment')
-    comment = models.CharField(max_length=250)
+    comment = models.CharField(max_length=250,null=True)

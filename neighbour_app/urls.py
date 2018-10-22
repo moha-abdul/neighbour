@@ -19,7 +19,7 @@ urlpatterns=[
     url(r'single_biz/(\d+)',views.single_biz, name = 'single_biz'),
     url(r'^search_biz/', views.search_biz, name ='search_biz'),
     url(r'neighbour/(\d+)',views.neighbour, name = 'neighbour'),
-    url(r'^new_comment/(\d+)', views.new_comment, name='new_comment'),
+    url(r'^comment/(\d+)', views.comment, name='comment'),
 ]
 
 if settings.DEBUG:
