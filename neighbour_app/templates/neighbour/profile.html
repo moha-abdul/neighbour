@@ -8,20 +8,21 @@
 			<div class="row">
 				<div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
 					<div class="profile">
+					<a href="{% url 'edit_profile' %}"><button class="btn profile-edit-btn">Edit Profile</button></a>
 					{% if profile %}
 						<div class="profile-image">
 							<img src="{{request.user.profile.photo.url}}" alt="">
 						</div>
 						<div class="profile-user-settings">
 							<h1 class="profile-user-name">{{ request.user.username }}</h1>
-							<a href="{% url 'edit_profile' %}"><button class="btn profile-edit-btn">Edit Profile</button>
-								<button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
+							<p><span class="profile-real-name"></span>current neighbourhood: {{neighbourhood.name}}</p>
+							<p><span class="profile-real-name"></span>email address: {{request.user.profile.email}}</p>
 						</div>
 						<div class="profile-bio">
 							<p><span class="profile-real-name"></span>{{request.user.profile.bio}}</p>
 						</div>
 						<div class="profile-bio">
-							<p><span class="profile-real-name"></span>current neighbourhood: {{request.user.neighbourhood.name}}</p>
+							
 						</div>
 					{% else %}
 						<img src="https://mbtskoudsalg.com/images/user-avatar-png-4.png" alt="">
