@@ -6,6 +6,11 @@
         <div class="col-md-8 col-lg-8 col-sm-8 col-xs-8">
             <h3>{{post.title}}</h3>
             <p>{{post.body}}</p>
+            <form id='comment' action="/new_comment/{{post.id}}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% bootstrap_form co_form %}
+                <input type="submit" class="btn btn-primary" value="comment">
+            </form>
         </div>
     </div>
 </div>

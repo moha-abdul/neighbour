@@ -7,7 +7,7 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
-from .forms import SignupForm,ProfileForm,PostForm, BusinessForm
+from .forms import SignupForm,ProfileForm,PostForm, BusinessForm, CommentForm
 from django.contrib.auth.models import User
 from .models import Profile, Posts, Business, Neighbourhood
 from django.core.mail import EmailMessage
@@ -102,7 +102,8 @@ def edit_profile(request):
 @login_required
 def single_post(request,post_id):
     post = Posts.objects.get(id=post_id)
-    return render(request,'neighbour/single-post.html',{"post": post})
+    co_form = CommentForm()
+    return render(request,'neighbour/single-post.html',{"post": post, "co_form":co_form})
 
 @login_required
 def single_biz(request,post_id):
@@ -180,3 +181,15 @@ def posts(request):
 def businesses(request):
     businesses = Business.objects.all()
     return render(request,'neighbour/businesses.html',locals())
+
+@login_required
+def new_comment(request,id):
+    upload_comment = Posts.objects.get(id=id)
+    if request.method == 'POST':
+        co_form = CommentForm(request.POST)
+        if co_form.is_valid():
+            comment = co_form.save(commit=False)
+            comment.user = request.user
+            comment.post = upload_comment
+            comment.save()
+        return redirect('neighbour/single-post.html')

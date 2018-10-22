@@ -87,3 +87,9 @@ class Posts(models.Model):
 
     def delete_post(self):
         self.delete()
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Comment')
+    posts = models.ForeignKey(Posts,on_delete=models.CASCADE, related_name='Comment')
+    comment = models.CharField(max_length=250)
