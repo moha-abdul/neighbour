@@ -101,7 +101,8 @@ def edit_profile(request):
 
 @login_required
 def single_post(request,post_id):
-    return render(request,'neighbour/single-post.html')
+    post = Posts.objects.get(id=post_id)
+    return render(request,'neighbour/single-post.html',{"post": post})
 
 @login_required
 def new_post(request):
@@ -168,7 +169,7 @@ def neighbour(request,neighbourhood_id):
 @login_required
 def posts(request):
     posts = Posts.objects.all()
-    return render(request,'neighbour/posts.html',locals())
+    return render(request,'neighbour/posts.html',{"posts":posts })
 
 @login_required
 def businesses(request):
