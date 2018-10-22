@@ -104,19 +104,47 @@ def single_post(request,post_id):
     return render(request,'neighbour/single-post.html')
 
 @login_required
-def new_biz(request):
-    current_user = request.user
+def new_post(request):
     if request.method == 'POST':
-        biz_form =BusinessForm(request.POST,instance=request.user.profile)
-        if biz_form.is_valid:
-            new_biz = biz_form.save(commit=False)
-            new_biz.user = current_user
-            new_biz.save()
-        return redirect('/')
-
+        post_form = PostForm(request.POST, request.FILES)
+        if post_form.is_valid():
+            posted = post_form.save(commit=False)
+            posted.user = request.user.profile
+            posted.neighbourhood = request.user.profile.neighbourhood
+            posted.save()
+            return redirect('neighbour')
     else:
-        biz_form =BusinessForm()
-        return render(request, 'neighbour/new-biz.html',{"biz_form": biz_form})
+        post_form = PostForm()
+    return render(request,'new-post.html', locals())
+
+# @login_required
+# def new_biz(request):
+#     current_user = request.user
+#     if request.method == 'POST':
+#         biz_form =BusinessForm(request.POST,instance=request.user.profile)
+#         if biz_form.is_valid:
+#             new_biz = biz_form.save(commit=False)
+#             new_biz.user = current_user
+#             new_biz.save()
+#         return redirect('/')
+
+#     else:
+#         biz_form =BusinessForm()
+#         return render(request, 'neighbour/new-biz.html',{"biz_form": biz_form})
+
+@login_required
+def new_biz(request):
+    if request.method == 'POST':
+        biz_form = BusinessForm(request.POST, request.FILES)
+        if biz_form.is_valid():
+            bizna = biz_form.save(commit=False)
+            bizna.user = request.user.profile
+            bizna.neighbourhood = request.user.profile.neighbourhood
+            bizna.save()
+            return redirect('neighbour/neighbour.html')
+    else:
+        biz_form = BusinessForm()
+    return render(request, 'neighbour/new-biz.html', locals())
 
 @login_required
 def search_biz(request):
@@ -134,5 +162,5 @@ def search_biz(request):
 
 @login_required
 def neighbour(request,neighbourhood_id):
-    users = User.objects.all()
+    users = Profile.objects.filter(id=neighbourhood_id)
     return render(request,'neighbour/neighbour.html',{"users":users})

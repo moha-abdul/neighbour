@@ -2,9 +2,16 @@
 {% load bootstrap4 %}
 {% block content %}
 <div class="container">
+    <div class="jumbotron">
+        <h1>Jumbotron</h1>      
+        <p>welcome to neighbourhood!</p>
+        <p><a href="{% url 'new_post' %}">New post</a></p>
+        <p><a href="{% url 'new_biz' %}">New business</a></p>
+    </div>
     <div class="row">
         <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
-        <h3>These are all users in this neighbourhood</h3>
+        
+        <h3>users in this neighbourhood</h3>
             <div class="profile">
             {% if users %}
             

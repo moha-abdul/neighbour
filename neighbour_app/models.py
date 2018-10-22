@@ -75,8 +75,6 @@ class Business(models.Model):
         updat.save()
         return updat
 
-
-
 class Posts(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Posts')
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, related_name='Neighbourhood')
