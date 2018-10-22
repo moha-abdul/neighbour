@@ -18,7 +18,7 @@ class ProfileForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Posts
-        fields = ('title','body')
+        fields = ['title','body']
 
 class BusinessForm(forms.ModelForm):
     class Meta:

@@ -14,6 +14,7 @@ urlpatterns=[
     url(r'^new_post/', views.new_post, name = 'new_post'),
     url(r'single_post/(\d+)',views.single_post, name = 'single_post'),
     url(r'new_biz/',views.new_biz, name = 'new_biz'),
+    url(r'^search_biz/', views.search_biz, name ='search_biz'),
 ]
 
 if settings.DEBUG:

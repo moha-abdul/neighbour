@@ -9,7 +9,7 @@ from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from .forms import SignupForm,ProfileForm,PostForm, BusinessForm
 from django.contrib.auth.models import User
-from .models import Profile, Posts
+from .models import Profile, Posts, Business, Neighbourhood
 from django.core.mail import EmailMessage
 
 def signup(request):
@@ -55,9 +55,10 @@ def activate(request, uidb64, token):
         return HttpResponse('Activation link is invalid!')
 
 def home(request):
+    neighbourhoods = Neighbourhood.objects.all()
     posts = Posts.objects.all()
     businesses = Business.objects.all()
-    return render(request, 'neighbour/index.html',{"posts": posts, "businesses": businesses})
+    return render(request, 'neighbour/index.html',{"posts": posts, "businesses": businesses, "neighbourhoods": neighbourhoods})
 
 @login_required(login_url="/accounts/login/")
 def profile(request):
@@ -83,13 +84,15 @@ def edit_profile(request):
 @login_required
 def new_post(request):
     current_user = request.user
+    # current_neighbourhood = Posts.neighbourhood
     # post_form = PostForm()
     if request.method == 'POST':
-        post_form =PostForm(request.POST,instance=request.user.profile)
+        post_form =PostForm(request.POST,request.FILES)
         if post_form.is_valid:
             new_post = post_form.save(commit=False)
-            new_post.user = current_user
+            # new_post.neighbourhood = current_neighbourhood
             new_post.save()
+            print('x')
         return redirect('/')
 
     else:
@@ -114,3 +117,17 @@ def new_biz(request):
     else:
         biz_form =BusinessForm()
         return render(request, 'neighbour/new-biz.html',{"biz_form": biz_form})
+
+@login_required
+def search_biz(request):
+
+    if 'business' in request.GET and request.GET["business"]:
+        search_term = request.GET.get("business")
+        searched_biz = Business.objects.filter(name=search_term)
+        message = f"{search_term}"
+
+        return render(request, 'neighbour/search.html',{"message":message,"businesses": searched_biz})
+
+    else:
+        message = "You haven't searched for any user"
+        return render(request, 'neighbour/search.html',{"message":message,"businesses": searched_biz})

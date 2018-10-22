@@ -5,7 +5,7 @@ class Neighbourhood(models.Model):
     name = models.CharField(max_length=50)
     location = models.CharField(max_length=100)
     occupants = models.CharField(max_length=20)
-    admin = models.ForeignKey('Profile', related_name='Neighbourhood', null=True)
+    admin = models.ForeignKey('Profile', related_name='Neighbourhood',null=True)
     
     def __str__(self):
         return self.name
@@ -78,7 +78,7 @@ class Business(models.Model):
 
 
 class Posts(models.Model):
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='Posts')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Posts')
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, related_name='Neighbourhood')
     title = models.CharField(max_length=50)
     body = models.TextField(max_length=3000)

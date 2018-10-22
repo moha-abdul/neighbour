@@ -11,8 +11,8 @@
       <nav class="navbar">
         <a href='/'>Home</a>
         
-        <form class="search-section" role="search" action="#" name="search" placeholder="search">
-          <input class="input-search" />
+        <form class="search-section" role="search" action="{% url 'search_biz' %}">
+          <input class="input-search" type="search" name="user" placeholder="Search" >
         </form>
         {% if user.is_authenticated %}
         <li><a class="smoth-scroll" href="{% url 'edit_profile' %}">Edit_profile</a>
