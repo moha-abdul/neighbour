@@ -26,24 +26,6 @@
             {% endif %}
             </div>
         </div>
-        
-        <div class="row">
-            <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
-            {% if businesses %}
-                {% for business in businesses %}
-                <div>
-                
-                <div>
-                    <p>{{business.name}}</p>
-                    <p>#</p>
-                </div>
-                </a>
-                {% endfor %}
-            {% else %}
-                <p>nothing for now</p>
-            {% endif %}
-            </div>
-        </div>
     </div>
 </body>
 {% endblock  %}

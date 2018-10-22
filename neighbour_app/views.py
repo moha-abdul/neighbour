@@ -105,6 +105,11 @@ def single_post(request,post_id):
     return render(request,'neighbour/single-post.html',{"post": post})
 
 @login_required
+def single_biz(request,post_id):
+    business = Business.objects.get(id=post_id)
+    return render(request,'neighbour/single-biz.html',{"business": business})
+
+@login_required
 def new_post(request):
     if request.method == 'POST':
         post_form = PostForm(request.POST, request.FILES)

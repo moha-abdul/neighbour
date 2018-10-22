@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-lg-8 col-sm-8 col-xs-8">
+            <h3>{{business.name}}</h3>
+            <p>{{business.body}}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

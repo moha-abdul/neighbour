@@ -38,6 +38,7 @@ class Profile(models.Model):
     photo  = models.ImageField(upload_to = 'profile/')
     email = models.CharField(max_length=200, null=True)
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, related_name='profile', null=True)
+    location = models.CharField(max_length=60, null=True)
 
     # def __str__(self):
     #     return self.user()
