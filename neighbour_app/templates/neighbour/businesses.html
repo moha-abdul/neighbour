@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block content %}
+<div class="container">
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+    {% if posts %}
+        {% for business in businesses %}
+        <div>
+        
+        <div>
+            <p><a href="/posts/{{post.id}}">{{business.name}}</a></p>
+        </div>
+        </a>
+        {% endfor %}
+    {% else %}
+        <p>nothing for now</p>
+    {% endif %}
+    </div>
+</div>
+</div>
+{% endblock %}

@@ -4,7 +4,9 @@
 <div class="container">
     <div class="jumbotron">
         <h1>Jumbotron</h1>      
-        <p>welcome to neighbourhood!</p>
+        <p>welcome to {{neighbourhood.name}} neighbourhood!</p>
+        <p><a href="{% url 'posts' %}">Click to view all posts in this neighbourhood</a></p>
+        <p><a href="{% url 'businesses' %}">Click to view all businesses in this neighbourhood</a></p>
         <p><a href="{% url 'new_post' %}">New post</a></p>
         <p><a href="{% url 'new_biz' %}">New business</a></p>
     </div>

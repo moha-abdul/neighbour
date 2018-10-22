@@ -81,23 +81,23 @@ def edit_profile(request):
             return render(request, 'neighbour/edit-profile.html', {"prof_form": prof_form,"profile":profile})
     return render(request, 'neighbour/edit-profile.html', {"prof_form":prof_form,"profile":profile})
 
-@login_required
-def new_post(request):
-    current_user = request.user
-    # current_neighbourhood = Posts.neighbourhood
-    # post_form = PostForm()
-    if request.method == 'POST':
-        post_form =PostForm(request.POST,request.FILES)
-        if post_form.is_valid:
-            new_post = post_form.save(commit=False)
-            # new_post.neighbourhood = current_neighbourhood
-            new_post.save()
-            print('x')
-        return redirect('/')
+# @login_required
+# def new_post(request):
+#     current_user = request.user
+#     # current_neighbourhood = Posts.neighbourhood
+#     # post_form = PostForm()
+#     if request.method == 'POST':
+#         post_form =PostForm(request.POST,request.FILES)
+#         if post_form.is_valid:
+#             new_post = post_form.save(commit=False)
+#             # new_post.neighbourhood = current_neighbourhood
+#             new_post.save()
+#             print('x')
+#         return redirect('/')
 
-    else:
-        post_form = PostForm()
-        return render(request, 'neighbour/new-post.html', {"post_form": post_form})
+#     else:
+#         post_form = PostForm()
+#         return render(request, 'neighbour/new-post.html', {"post_form": post_form})
 
 @login_required
 def single_post(request,post_id):
@@ -109,13 +109,13 @@ def new_post(request):
         post_form = PostForm(request.POST, request.FILES)
         if post_form.is_valid():
             posted = post_form.save(commit=False)
-            posted.user = request.user.profile
+            posted.user = request.user
             posted.neighbourhood = request.user.profile.neighbourhood
             posted.save()
-            return redirect('neighbour')
+            return redirect('neighbour/neighbour.html')
     else:
         post_form = PostForm()
-    return render(request,'new-post.html', locals())
+    return render(request,'neighbour/new-post.html', locals())
 
 # @login_required
 # def new_biz(request):
@@ -164,3 +164,13 @@ def search_biz(request):
 def neighbour(request,neighbourhood_id):
     users = Profile.objects.filter(id=neighbourhood_id)
     return render(request,'neighbour/neighbour.html',{"users":users})
+
+@login_required
+def posts(request):
+    posts = Posts.objects.all()
+    return render(request,'neighbour/posts.html',locals())
+
+@login_required
+def businesses(request):
+    businesses = Business.objects.all()
+    return render(request,'neighbour/businesses.html',locals())
